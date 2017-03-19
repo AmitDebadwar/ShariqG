@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>URL count Analyzer</title>
+
+    <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <style>
+        .links{
+            font-weight:600;
+            font-size: 10px;
+        }
+
+        .info{
+            font-size:11px;
+        }
+    </style>
+
+</head>
+<body ng-app="UrlCounterApp" ng-controller="MainCtrl" class="container-fluid" style="width:300px; min-height: 600px;">
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h4><b>Welcome to Amzaing Extension</b></h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <ui-view></ui-view>
+    </div>
+</div>
+
+
+
+
+
+</body>
+
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+
+<script src="app.js"></script>
+<script src="app.config.js"></script>
+<script src="public/controller/MainCtrl.js"></script>
+<script src="public/controller/LoginCtrl.js"></script>
+<script src="public/controller/DashboardCtrl.js"></script>
+
+</html>
