@@ -2,6 +2,8 @@
 var express =require('express');
 var app=express();
 
+// Retrieve
+var MongoClient = require('mongodb').MongoClient;
 
 var mongojs = require('mongojs');
 var expressSession = require('express-session');
@@ -32,18 +34,22 @@ app.get('/',function(req,res){
 // Possible errors: the passwords are not the same, and a user
 // with that username already exists.
 function createUser(username, password, password_confirmation, callback) {
-    var coll = mongo.collection('users');
+   // var coll = mongo.collection('users');
 
-    if (password !== password_confirmation) {
+    MongoClient.connect("mongodb://localhost:27017/urlDb", function(err, db) {
+  if(err) { return console.dir(err); }
+
+  var collection = db.collection('users');
+ if (password !== password_confirmation) {
         var err = 'The passwords do not match';
         callback(err);
     } else {
         var query = {
-            username: username
+            'username': username
         };
         var userObject = {
-            username: username,
-            password: password
+            'username': username,
+            'password': password
         };
 
         // make sure this username does not exist already
@@ -59,14 +65,19 @@ function createUser(username, password, password_confirmation, callback) {
             }
         });
     }
+});
 }
 
 app.post('/signup', function(req, res) {
     // The 3 variables below all come from the form
     // in views/signup.hbs
-    var username = req.body.username;
-    var password = req.body.password;
-    var password_confirmation = req.body.password_confirmation;
+   // var username = req.body.username;
+    //var password = req.body.password;
+    //var password_confirmation = req.body.password_confirmation;
+
+    var username = 'arun';
+    var password = 'arun';
+    var password_confirmation = 'arun_confirm';
 
     createUser(username, password, password_confirmation, function(err, user) {
         if (err) {
@@ -76,7 +87,7 @@ app.post('/signup', function(req, res) {
         } else {
 
             // This way subsequent requests will know the user is logged in.
-            req.session.username = user.username;
+            //req.session.username = user.username;
 
             res.redirect('/');
         }
@@ -86,32 +97,44 @@ app.post('/signup', function(req, res) {
 // This finds a user matching the username and password that
 // were given.
 function authenticateUser(username, password, callback) {
-    var coll = mongo.collection('users');
+    // Connect to the db
+MongoClient.connect("mongodb://localhost:27017/urlDb", function(err, db) {
+  if(err) { return console.dir(err); }
 
-    coll.findOne({
-        username: username,
-        password: password
+  var collection = db.collection('users');
+  var doc1 = {'hello':'doc1'};
+  collection.insert(doc1);
+  console.log(username);
+  console.log(password);
+ collection.findOne({
+        'username': 'shariq',
+        'password': 'shariq'
     }, function(err, user) {
         callback(err, user);
     });
+
+});
+    
 }
 
 app.post('/login', function(req, res) {
     // These two variables come from the form on
     // the views/login.hbs page
+   // var username = 'shariq';
+   // var password = 'shariq';
     var username = req.body.username;
     var password = req.body.password;
 
+  console.log(password);
     authenticateUser(username, password, function(err, user) {
         if (user) {
             // This way subsequent requests will know the user is logged in.
-            req.session.username = user.username;
-
+            //req.session.username = user.username;
+            console.log('from '+user.username);
+             res.json({'authenticatedUser':true});
             res.redirect('/');
         } else {
-            res.render('login', {
-                badCredentials: true
-            });
+            res.json({'authenticatedUser':true});
         }
     });
 });
