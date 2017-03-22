@@ -5,11 +5,16 @@
 
 angular.module("UrlCounterApp").controller("LoginCtrl", function ($scope, $state, $http) {
 
-    $scope.login = function () {
- 
+
+    $scope.login=function(){
+        $state.go("signup");
+    }
+
+    $scope.loginOri = function () {
+
         $http({
-            method : "POST",
-            url : "/login",
+            method : "GET",
+            url : "/public/controller/login.json",
             data: {
                 "username":$scope.userName,
                 "password":$scope.password

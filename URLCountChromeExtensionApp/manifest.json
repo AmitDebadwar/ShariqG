@@ -13,6 +13,8 @@
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": [
     "public/views/login.html",
-    "public/views/dashboard.html"
+    "public/views/dashboard.html",
+    "public/views/dashboard.html",
+    "/public/controller/login.json"
   ]
 }

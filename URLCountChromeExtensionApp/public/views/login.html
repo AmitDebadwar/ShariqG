@@ -21,10 +21,15 @@
     <div class="row" style="margin-top: 3px;">
         <div class="col-md-12 text-center">
 
-            <button type="button" class="btn btn-default btn-sm" ng-click="login()">Login</button>
+            <button type="button" class="btn btn-primary btn-sm" ng-click="login()">Login</button>
         </div>
 
     </div>
+<div class="row" ng-show="isUserAuthenticated">
+    <div class="col-md-12" style="margin-top:10px;">
+        <div class="alert alert-warning" role="alert">Username/Password is wrong !</div>
+    </div>
+</div>
 
     <div class="row" style="margin-top: 8px;">
         <div class="col-md-12">
@@ -42,7 +47,7 @@
 
     <div class="row" style="margin-top: 20px;">
         <div class="col-md-12 text-center">
-            <button type="button" class="btn btn-default btn-sm">Request this page</button>
+            <button type="button" class="btn btn-info btn-sm">Request this page</button>
         </div>
     </div>
 
